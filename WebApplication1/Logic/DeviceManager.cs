@@ -9,6 +9,7 @@ public class DeviceManager
     private const int MaxDevices = 15;
 
     public List<Device> GetAllDevices() => devices;
+    
 
     public Device? GetDeviceById(int id) =>
         devices.FirstOrDefault(d => d.Id == id);
