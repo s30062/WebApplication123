@@ -1,8 +1,9 @@
-﻿using DeviceManager.Entities;
+﻿
+using DeviceManager.Entities;
 
-namespace DeviceManager.Logic
+namespace DeviceManager.Repository
 {
-    public interface IDeviceService
+    public interface IDeviceRepository
     {
         IEnumerable<Device> GetAllDevices();
         Device? GetDeviceById(int id); 
