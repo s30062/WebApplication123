@@ -1,0 +1,55 @@
+# Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+*.sln.ide
+
+# Build Folders
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.app
+*.ipa
+*.dmg
+
+# ASP.NET Core
+appsettings*.json
+appsettings*.Development.json
+
+# Database
+*.mdf
+*.ldf
+
+# Logs
+logs/
+*.log
+
+# User-specific files
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker
+docker-compose.override.yml
+
+# Node
+node_modules/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# MacOS
+.DS_Store
