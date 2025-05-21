@@ -1,7 +1,8 @@
-﻿using WebApplication1.API.Models;
+﻿using WebApplication1.Api.Data;
+using WebApplication1.Api.Models;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Api.Data;
-using WebApplication1.API.Models.DTOs;
+
+namespace WebApplication1.Api.Services;
 
 public class DeviceService : IDeviceService
 {
@@ -12,32 +13,30 @@ public class DeviceService : IDeviceService
         _context = context;
     }
 
-    public IEnumerable<DeviceDto> GetAll()
+    public IEnumerable<Device> GetAll()
     {
-        return _context.Devices
-            .Include(d => d.DeviceType)
-            .Select(d => new DeviceDto
-            {
-                Id = d.Id,
-                Name = d.Name,
-                IsEnabled = d.IsEnabled,
-                AdditionalProperties = d.AdditionalProperties,
-                DeviceType = d.DeviceType != null ? d.DeviceType.Name : null
-            }).ToList();
+        return _context.Devices.Include(d => d.DeviceType).ToList();
     }
 
-    public DeviceDto? GetById(int id)
+    public Device? GetById(int id)
     {
-        return _context.Devices
-            .Include(d => d.DeviceType)
-            .Where(d => d.Id == id)
-            .Select(d => new DeviceDto
-            {
-                Id = d.Id,
-                Name = d.Name,
-                IsEnabled = d.IsEnabled,
-                AdditionalProperties = d.AdditionalProperties,
-                DeviceType = d.DeviceType != null ? d.DeviceType.Name : null
-            }).FirstOrDefault();
+        return _context.Devices.Include(d => d.DeviceType).FirstOrDefault(d => d.Id == id);
+    }
+
+    public int Create(Device device)
+    {
+        _context.Devices.Add(device);
+        _context.SaveChanges();
+        return device.Id;
+    }
+
+    public bool Delete(int id)
+    {
+        var device = _context.Devices.FirstOrDefault(d => d.Id == id);
+        if (device == null) return false;
+
+        _context.Devices.Remove(device);
+        _context.SaveChanges();
+        return true;
     }
 }

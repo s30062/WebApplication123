@@ -1,8 +1,11 @@
-﻿using WebApplication1.API.Models;
-using WebApplication1.API.Models.DTOs;
+﻿using WebApplication1.Api.Models;
+
+namespace WebApplication1.Api.Services;
 
 public interface IDeviceService
 {
-    IEnumerable<DeviceDto> GetAll();
-    DeviceDto? GetById(int id);
+    IEnumerable<Device> GetAll();
+    Device? GetById(int id);
+    int Create(Device device);
+    bool Delete(int id);
 }
