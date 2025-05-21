@@ -1,24 +1,28 @@
-﻿using DeviceManager.Entities;
-using DeviceManager.Logic;
-using DeviceManager.Repository;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication1.Api.Data;
+using WebApplication1.Api.Models;
+using WebApplication1.Api.Controllers;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls("http://localhost:5300");
 
-var connectionString = builder.Configuration.GetConnectionString("UniversityDatabase");
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddScoped<IDeviceService, DeviceService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IDeviceService, DeviceService>();
-builder.Services.AddScoped<IDeviceRepository>(provider => new DeviceRepository(connectionString));
-
 var app = builder.Build();
 
-// Swagger 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
